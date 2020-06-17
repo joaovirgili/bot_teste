@@ -1,12 +1,23 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
+const moment = require('moment');
 const DISCORD_KEY = require('./config');
+const { HLTV } = require('hltv');
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('message', async msg => {
+
+    if (msg.content === '!mibr') {
+        getProximoJogoCSGO(msg, "3250");
+    }
+
+    if (msg.content === '!furia') {
+        getProximoJogoCSGO(msg, "124530");
+    }
 
     if (msg.content === '!9') {
         msg.channel.send(`9? 99? 999?`, { tts: true });
@@ -62,6 +73,10 @@ client.on('message', async msg => {
         const user = getUser(msg, 'polishop');
         msg.channel.send(`<@${user.id}> sabe tudo`);
     }
+    if (msg.content === '!bells') {
+        const user = getUser(msg, 'Bells');
+        msg.channel.send(`<@${user.id}> https://scontent.fssa7-1.fna.fbcdn.net/v/t1.0-9/252610_227581317253328_5612844_n.jpg?_nc_cat=100&_nc_sid=cdbe9c&_nc_eui2=AeG7amDxKKRpHlRi9m0eD8CLdIs_Dm4YyWR0iz8ObhjJZGWm6aFYDPapD0tSbBar0ilKuIPKN3ksHkgmdQXhGT53&_nc_ohc=xjtgTh_A0BEAX_zbHgc&_nc_ht=scontent.fssa7-1.fna&oh=fa40991e9cef6b93f80d7508fb5ccb1d&oe=5F0DB6EE`);
+    }
 
     if (msg.content === '!piada') {
         var url = "https://us-central1-kivson.cloudfunctions.net/charada-aleatoria";//Sua URL
@@ -76,7 +91,79 @@ client.on('message', async msg => {
         msg.channel.send(res.data.resposta);
     }
 
+    if (msg.content === "!cblol") {
+        getJogosLiga(msg, 302);
+    }
+    if (msg.content === "!lec") {
+        getJogosLiga(msg, 4197);
+    }
+    if (msg.content === "!lck") {
+        getJogosLiga(msg, 293);
+    }
+    if (msg.content === "!lcs") {
+        getJogosLiga(msg, 4198);
+    }
+
 });
+
+async function getProximoJogoCSGO(msg, time) {
+    var url = `https://api.pandascore.co/teams/${time}/matches?token=gVCbvbyDzmyqsQJPJfT6YXp9NkBFFdpcwMAPDSfmO_YQMljNiJY`;
+
+    const res = await axios.get(url);
+    if (res.status === 200) {
+        const jogo = res.data[0];
+
+        let mensagem = `${moment(jogo.original_scheduled_at).format("dddd - DD/MM")}\n`;
+        mensagem += jogo.name;
+
+        msg.channel.send(mensagem);
+    } else {
+        console.log(res);
+    }
+}
+
+async function getJogosLiga(msg, liga_id) {
+    var url = `https://api.pandascore.co/leagues/${liga_id}/matches/upcoming?token=gVCbvbyDzmyqsQJPJfT6YXp9NkBFFdpcwMAPDSfmO_YQMljNiJY`;
+
+    var hoje = moment();
+
+    const res = await axios.get(url);
+    if (res.status === 200) {
+        const jogos = res.data;
+
+        let jogosHoje = getJogosByDate(jogos, hoje);
+
+        if (jogosHoje.length === 0) {
+            jogosHoje = getJogosProximoDia(jogos);
+        }
+
+        let mensagem = moment(jogosHoje[0].original_scheduled_at).format("dddd - DD/MM");
+
+        mensagem = mensagem + jogosHoje.map(jogo => {
+            const dataJogo = moment(jogo.original_scheduled_at);
+            return `\n${jogo.name} - ${dataJogo.format("HH:mm")}`
+        });
+
+        msg.channel.send(mensagem);
+
+    } else {
+        console.log(res);
+        msg.channel.send("Deu merda");
+    }
+}
+
+function getJogosProximoDia(jogos) {
+    const primeiroJogo = jogos[0];
+    const dataPrimeiroJogo = moment(primeiroJogo.original_scheduled_at);
+    return getJogosByDate(jogos, dataPrimeiroJogo);
+}
+
+function getJogosByDate(jogos, date) {
+    return jogos.filter(jogo => {
+        const dataJogo = moment(jogo.original_scheduled_at);
+        return date.isSame(dataJogo, 'day') && date.isSame(dataJogo, 'month');
+    });
+}
 
 client.login(DISCORD_KEY);
 

@@ -11,6 +11,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "discord.js": "^12.2.0",
-    "https": "^1.0.0"
+    "hltv": "^2.19.4",
+    "https": "^1.0.0",
+    "moment": "^2.26.0"
   }
 }
