@@ -2,9 +2,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
 const moment = require('moment');
-const DISCORD_KEY = require('./config');
-const PANDA_KEY = require('./panda_config');
-const { HLTV } = require('hltv');
+const { DISCORD_KEY } = require('./config');
+const { COMMANDS } = require('./commands');
+const getProximoJogoCSGO = require('./shared/functions/csgo/get_proximo_jogo');
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -12,13 +12,18 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
 
-    if (msg.content === '!mibr') {
-        getProximoJogoCSGO(msg, "3250");
+    const action = COMMANDS[msg.content];
+    if (action) {
+        action(msg);
     }
 
-    if (msg.content === '!furia') {
-        getProximoJogoCSGO(msg, "124530");
-    }
+    // if (msg.content === '!mibr') {
+    //     getProximoJogoCSGO(msg, "3250");
+    // }
+
+    // if (msg.content === '!furia') {
+    //     getProximoJogoCSGO(msg, "124530");
+    // }
 
     if (msg.content === '!9') {
         msg.channel.send(`9? 99? 999?`, { tts: true });
@@ -106,22 +111,6 @@ client.on('message', async msg => {
     }
 
 });
-
-async function getProximoJogoCSGO(msg, time) {
-    var url = `https://api.pandascore.co/teams/${time}/matches?token=${PANDA_KEY}`;
-
-    const res = await axios.get(url);
-    if (res.status === 200) {
-        const jogo = res.data[0];
-
-        let mensagem = `${moment(jogo.original_scheduled_at).format("dddd - DD/MM")}\n`;
-        mensagem += jogo.name;
-
-        msg.channel.send(mensagem);
-    } else {
-        console.log(res);
-    }
-}
 
 async function getJogosLiga(msg, liga_id) {
     var url = `https://api.pandascore.co/leagues/${liga_id}/matches/upcoming?token=${PANDA_KEY}`;
