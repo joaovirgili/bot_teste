@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const axios = require('axios');
 const moment = require('moment');
 const DISCORD_KEY = require('./config');
+const PANDA_KEY = require('./panda_config');
 const { HLTV } = require('hltv');
 
 client.on('ready', () => {
@@ -107,7 +108,7 @@ client.on('message', async msg => {
 });
 
 async function getProximoJogoCSGO(msg, time) {
-    var url = `https://api.pandascore.co/teams/${time}/matches?token=gVCbvbyDzmyqsQJPJfT6YXp9NkBFFdpcwMAPDSfmO_YQMljNiJY`;
+    var url = `https://api.pandascore.co/teams/${time}/matches?token=${PANDA_KEY}`;
 
     const res = await axios.get(url);
     if (res.status === 200) {
@@ -123,7 +124,7 @@ async function getProximoJogoCSGO(msg, time) {
 }
 
 async function getJogosLiga(msg, liga_id) {
-    var url = `https://api.pandascore.co/leagues/${liga_id}/matches/upcoming?token=gVCbvbyDzmyqsQJPJfT6YXp9NkBFFdpcwMAPDSfmO_YQMljNiJY`;
+    var url = `https://api.pandascore.co/leagues/${liga_id}/matches/upcoming?token=${PANDA_KEY}`;
 
     var hoje = moment();
 
