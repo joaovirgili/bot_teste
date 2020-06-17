@@ -1,6 +1,8 @@
 const csgo_teams = require('./commands/csgo/teams');
 const brother = require('./commands/fun/brother');
 const lol_leagues = require('./commands/lol/league');
+const other = require('./commands/fun/other');
+const joke = require('./commands/fun/jokes');
 
 module.exports.COMMANDS = {
     "!mibr": csgo_teams.mibr,
@@ -19,4 +21,7 @@ module.exports.COMMANDS = {
     "!lck": lol_leagues.lck,
     "!lec": lol_leagues.lec,
     "!lpl": lol_leagues.lpl,
+    "!crime": other.crime,
+    "!ezplay": other.ezplay,
+    "!piada": joke.joke,
 }
