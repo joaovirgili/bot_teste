@@ -29,4 +29,5 @@ module.exports.COMMANDS = {
 	'!highlander': other.highlander,
 	'!piada': joke.joke,
 	'!ranking cs': hltv.ranking,
+	'!lucca': brother.lucca,
 };

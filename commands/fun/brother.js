@@ -41,3 +41,8 @@ module.exports.bells = (msg) => {
     const user = getUser(msg, 'Bells');
     msg.channel.send(`<@${user.id}> https://scontent.fssa7-1.fna.fbcdn.net/v/t1.0-9/252610_227581317253328_5612844_n.jpg?_nc_cat=100&_nc_sid=cdbe9c&_nc_eui2=AeG7amDxKKRpHlRi9m0eD8CLdIs_Dm4YyWR0iz8ObhjJZGWm6aFYDPapD0tSbBar0ilKuIPKN3ksHkgmdQXhGT53&_nc_ohc=xjtgTh_A0BEAX_zbHgc&_nc_ht=scontent.fssa7-1.fna&oh=fa40991e9cef6b93f80d7508fb5ccb1d&oe=5F0DB6EE`);
 }
+
+module.exports.lucca = (msg) => {
+    const user = getUser(msg, 'luccassb');
+    msg.channel.send(`<@${user.id}> eterna promessa do cszinho e paga pau de fer`);
+}
