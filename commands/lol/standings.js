@@ -1,4 +1,4 @@
-const { PANDA_KEY } = require('../../config');
+const { PANDA_KEY } = require('../../.config');
 const axios = require('axios');
 
 module.exports.cblol = async (msg, id = 4152) => {

@@ -33,4 +33,5 @@ module.exports.COMMANDS = {
 	'!lucca': brother.lucca,
 	'!tabela cblol': standings.cblol,
 	'!loritta': other.loritta,
+	'!pepo': brother.pepo,
 };

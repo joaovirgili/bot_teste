@@ -1,4 +1,4 @@
-const { PANDA_KEY } = require('../../../config');
+const { PANDA_KEY } = require('../../../.config');
 const axios = require('axios');
 const moment = require('moment');
 

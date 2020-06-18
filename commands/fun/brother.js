@@ -46,3 +46,8 @@ module.exports.lucca = (msg) => {
     const user = getUser(msg, 'luccassb');
     msg.channel.send(`<@${user.id}> eterna promessa do cszinho e paga pau de fer`);
 }
+
+module.exports.pepo = (msg) => {
+    const user = getUser(msg, 'tito');
+    msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
+}
