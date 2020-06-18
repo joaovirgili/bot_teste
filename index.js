@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const axios = require('axios');
 const { DISCORD_KEY } = require('./config');
 const { COMMANDS } = require('./commands');
 
@@ -15,4 +14,4 @@ client.on('message', async msg => {
     }
 });
 
-client.login(DISCORD_KEY);
+client.login(DISCORD_KEY); 

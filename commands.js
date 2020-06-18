@@ -3,8 +3,10 @@ const brother = require('./commands/fun/brother');
 const lol_leagues = require('./commands/lol/league');
 const other = require('./commands/fun/other');
 const joke = require('./commands/fun/jokes');
+const commands = require('./commands/config');
 
 module.exports.COMMANDS = {
+    "!c": commands.commands , 
     "!mibr": csgo_teams.mibr,
     "!furia": csgo_teams.furia,
     "!jay": brother.jay,
