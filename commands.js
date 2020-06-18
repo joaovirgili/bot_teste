@@ -1,4 +1,5 @@
 const csgo_teams = require('./commands/csgo/teams');
+const hltv = require('./commands/csgo/hltv');
 const brother = require('./commands/fun/brother');
 const lol_leagues = require('./commands/lol/league');
 const other = require('./commands/fun/other');
@@ -27,4 +28,5 @@ module.exports.COMMANDS = {
 	'!ezplay': other.ezplay,
 	'!highlander': other.highlander,
 	'!piada': joke.joke,
+	'!ranking cs': hltv.ranking,
 };
