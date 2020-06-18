@@ -5,6 +5,7 @@ const lol_leagues = require('./commands/lol/league');
 const other = require('./commands/fun/other');
 const joke = require('./commands/fun/jokes');
 const commands = require('./commands/config');
+const standings = require('./commands/lol/standings');
 
 module.exports.COMMANDS = {
 	'!c': commands.commands,
@@ -30,4 +31,5 @@ module.exports.COMMANDS = {
 	'!piada': joke.joke,
 	'!ranking cs': hltv.ranking,
 	'!lucca': brother.lucca,
+	'!tabela cblol': standings.cblol,
 };
