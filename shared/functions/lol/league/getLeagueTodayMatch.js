@@ -3,44 +3,53 @@ const axios = require('axios');
 const moment = require('moment');
 
 module.exports.getLeagueTodayMatchs = async function (msg, liga_id) {
-    var url = `https://api.pandascore.co/leagues/${liga_id}/matches/upcoming?token=${PANDA_KEY}`;
+	var url = `https://api.pandascore.co/leagues/${liga_id}/matches/upcoming?token=${PANDA_KEY}`;
 
-    var hoje = moment();
+	var hoje = moment();
 
-    const res = await axios.get(url);
-    if (res.status === 200) {
-        const jogos = res.data;
+	try {
+		const res = await axios.get(url);
 
-        let jogosHoje = getJogosByDate(jogos, hoje);
+		if (res.status === 200) {
+			const jogos = res.data;
 
-        if (jogosHoje.length === 0) {
-            jogosHoje = getJogosProximoDia(jogos);
-        }
+			let jogosHoje = getJogosByDate(jogos, hoje);
 
-        let mensagem = moment(jogosHoje[0].original_scheduled_at).format("dddd - DD/MM");
+			if (jogosHoje.length === 0) {
+				jogosHoje = getJogosProximoDia(jogos);
+			}
 
-        mensagem = mensagem + jogosHoje.map(jogo => {
-            const dataJogo = moment(jogo.original_scheduled_at);
-            return `\n${jogo.name} - ${dataJogo.format("HH:mm")}`
-        });
+			let mensagem = moment(jogosHoje[0].original_scheduled_at).format(
+				'dddd - DD/MM'
+			);
 
-        msg.channel.send(mensagem);
+			mensagem =
+				mensagem +
+				jogosHoje.map((jogo) => {
+					const dataJogo = moment(jogo.original_scheduled_at);
+					return `\n${jogo.name} - ${dataJogo.format('HH:mm')}`;
+				});
 
-    } else {
-        console.log(res);
-        msg.channel.send("Deu merda");
-    }
-}
+			msg.channel.send(mensagem);
+		} else {
+			console.log(res);
+			msg.channel.send('Deu merda');
+		}
+	} catch (error) {
+		console.error(error);
+		msg.channel.send('Deu merda');
+	}
+};
 
 function getJogosProximoDia(jogos) {
-    const primeiroJogo = jogos[0];
-    const dataPrimeiroJogo = moment(primeiroJogo.original_scheduled_at);
-    return getJogosByDate(jogos, dataPrimeiroJogo);
+	const primeiroJogo = jogos[0];
+	const dataPrimeiroJogo = moment(primeiroJogo.original_scheduled_at);
+	return getJogosByDate(jogos, dataPrimeiroJogo);
 }
 
 function getJogosByDate(jogos, date) {
-    return jogos.filter(jogo => {
-        const dataJogo = moment(jogo.original_scheduled_at);
-        return date.isSame(dataJogo, 'day') && date.isSame(dataJogo, 'month');
-    });
+	return jogos.filter((jogo) => {
+		const dataJogo = moment(jogo.original_scheduled_at);
+		return date.isSame(dataJogo, 'day') && date.isSame(dataJogo, 'month');
+	});
 }

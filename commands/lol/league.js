@@ -15,3 +15,7 @@ module.exports.lck = (msg) => {
 module.exports.lcs = (msg) => {
     getLeagueTodayMatchs(msg, "4198");
 }
+
+module.exports.lpl = (msg) => {
+    getLeagueTodayMatchs(msg, "294");
+}
