@@ -32,4 +32,5 @@ module.exports.COMMANDS = {
 	'!ranking cs': hltv.ranking,
 	'!lucca': brother.lucca,
 	'!tabela cblol': standings.cblol,
+	'!loritta': other.loritta,
 };

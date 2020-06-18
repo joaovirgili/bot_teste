@@ -14,3 +14,8 @@ module.exports.highlander = (msg) => {
 	const user = getUser(msg, 'Cvs1');
 	msg.channel.send(`<@${user.id}> tiltou pq eles tem camisa`);
 };
+
+module.exports.loritta = (msg) => {
+	const user = getUser(msg, 'Loritta');
+	msg.channel.send(`Pau no cu da <@${user.id}>. Eu sou muito melhor!`);
+};

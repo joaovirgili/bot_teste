@@ -13,7 +13,6 @@ module.exports.cblol = async (msg, id = 4152) => {
 					if (team.team.acronym.length === 2) {
 						team.team.acronym += ' ';
 					}
-
 					return `\`${team.rank}. ${team.team.acronym}  ${team.wins}-${team.losses}\``;
 				})
 			);
