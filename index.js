@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const { DISCORD_KEY } = require('./config');
+const { DISCORD_KEY } = require('./.config');
 const { COMMANDS } = require('./commands');
 
 client.on('ready', () => {

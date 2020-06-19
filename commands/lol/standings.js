@@ -6,7 +6,6 @@ module.exports.cblol = async (msg, id = 4152) => {
 
 	try {
 		const res = await axios.get(url);
-		console.log(res.data);
 		if (res.status === 200) {
 			msg.channel.send(
 				res.data.map((team) => {
@@ -20,7 +19,6 @@ module.exports.cblol = async (msg, id = 4152) => {
 			console.log(res);
 			msg.channel.send('Deu merda');
 		}
-		msg.channel.send();
 	} catch (error) {
 		console.error(error);
 		msg.channel.send('Deu merda');
