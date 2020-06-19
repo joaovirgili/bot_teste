@@ -39,5 +39,5 @@ module.exports.COMMANDS = {
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
 	'!tito': brother.tito,
-	
+	'!haas': brother.haas
 };
