@@ -51,3 +51,8 @@ module.exports.pepo = (msg) => {
     const user = getUser(msg, 'tito');
     msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
 }
+
+module.exports.tito = (msg) => {
+    const user = getUser(msg, 'Pepo');
+    msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
+}

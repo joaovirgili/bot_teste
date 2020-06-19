@@ -34,4 +34,5 @@ module.exports.COMMANDS = {
 	'!tabela cblol': standings.cblol,
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
+	'!tito': brother.tito,
 };
