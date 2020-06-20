@@ -39,7 +39,8 @@ module.exports.COMMANDS = {
 	'!tabela lpl': standings.lpl,
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
-	'!vava': valorant.startQueue,
+	'!vava': valorant.openRoom,
 	'!tito': brother.tito,
+	'!caio': brother.caio,
 	'!haas': brother.haas
 };
