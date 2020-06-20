@@ -6,6 +6,7 @@ const other = require('./commands/fun/other');
 const joke = require('./commands/fun/jokes');
 const commands = require('./commands/config');
 const standings = require('./commands/lol/standings');
+const valorant = require('./commands/valorant/queue');
 
 module.exports.COMMANDS = {
 	'!c': commands.commands,
@@ -34,4 +35,5 @@ module.exports.COMMANDS = {
 	'!tabela cblol': standings.cblol,
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
+	'!vava': valorant.startQueue,
 };
