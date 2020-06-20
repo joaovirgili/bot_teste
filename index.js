@@ -22,9 +22,8 @@ client.on('message', async msg => {
     // if (msg.content === `!delete` && msg.channel.name === "valorant") {
     //     try {
     //         msg.channel.bulkDelete(20);
-    //         console.log("funcionou");
     //     } catch (error) {
-    //         console.log(error);
+    //         // console.log(error);
     //     }
     // }
 
@@ -48,7 +47,6 @@ client.on('messageReactionAdd', async (msg, user) => {
     const room = ROOMS[roomId];
     addUser(room, user);
     refreshRoomText(msg, room);
-    console.log(ROOMS);
 
 });
 
