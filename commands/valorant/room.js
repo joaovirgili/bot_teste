@@ -1,5 +1,5 @@
 const { ROOMS } = require('../../shared/variables/room')
-const { acceptEmoji } = require('../../shared/variables/accept_emoji')
+const { acceptEmoji, cancelEmoji } = require('../../shared/variables/emojis')
 const { buildRoomText } = require('../../shared/functions/rooms/build_room_message')
 
 module.exports.openRoom = async (msg, horario) => {
@@ -9,12 +9,13 @@ module.exports.openRoom = async (msg, horario) => {
         users: [author],
         game: msg.channel.name,
         owner: author.id,
-        time: horario
+        time: horario,
     };
     const texto = buildRoomText(room);
     const roomMessage = await msg.channel.send(texto);
 
     roomMessage.react(acceptEmoji);
+    roomMessage.react(cancelEmoji);
 
     room.id = roomMessage.id;
     ROOMS[room.id] = room;
@@ -28,12 +29,3 @@ module.exports.cancel = async (msg) => {
     deleteRoom(roomMessage, room.id);
 }
 
-function getUserRoom(uid) {
-    return Object.values(ROOMS).find(room => room.owner == uid);
-}
-
-async function deleteRoom(msg, id) {
-    await msg.delete();
-    delete ROOMS[id];
-    console.log(ROOMS);
-}

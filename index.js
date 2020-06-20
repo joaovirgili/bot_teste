@@ -3,37 +3,30 @@ const client = new Discord.Client();
 const { DISCORD_KEY } = require('./.config');
 const { COMMANDS } = require('./commands');
 const { ROOMS } = require('./shared/variables/room')
-const { acceptEmoji } = require('./shared/variables/accept_emoji');
+const { acceptEmoji, cancelEmoji } = require('./shared/variables/emojis');
 const { buildRoomText } = require("./shared/functions/rooms/build_room_message")
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
-
-    // // Criar a mensagem
-    // const valorantChannel = await client.channels.fetch("723793249269186580");
-    // // console.log()
-    // await client.channels.cache.get("723793249269186580").messages.channel.bulkDelete(10)
-    // valorantChannel.send("text 5");
 });
 
 client.on('message', async msg => {
 
     // Commands with optional parameters
-    if (msg.content.includes("!vava")) {
+    if (msg.content.includes("!sala")) {
         entrada = msg.content.split(" ");
         if (entrada.length == 2) {
-            const action = COMMANDS["!vava horario"];
+            const action = COMMANDS["!sala horario"];
             action(msg, entrada[1]);
         }
     }
-
-    // if (msg.content === `!delete` && msg.channel.name === "valorant") {
-    //     try {
-    //         msg.channel.bulkDelete(20);
-    //     } catch (error) {
-    //         // console.log(error);
-    //     }
-    // }
+    if (msg.content === `!delete` && msg.channel.name === "lobby" && msg.author.id === "128018944970719232") {
+        try {
+            msg.channel.bulkDelete(20);
+        } catch (error) {
+            // console.log(error);
+        }
+    }
 
     const action = COMMANDS[msg.content];
 
@@ -41,7 +34,7 @@ client.on('message', async msg => {
         action(msg);
     }
 
-    if (msg.channel.name === "valorant" && msg.author.username != "Crime Info") {
+    if (msg.channel.name === "lobby" && msg.author.username != "Crime Info") {
         msg.delete();
     }
 });
@@ -49,16 +42,49 @@ client.on('message', async msg => {
 client.on('messageReactionAdd', async (msg, user) => {
     if (!user) return;
     if (user.bot) return;
-    if (msg.emoji.name !== acceptEmoji) return;
-
     const roomId = msg.message.id;
     if (!hasRoom(ROOMS, roomId)) return;
-
     const room = ROOMS[roomId];
-    addUser(room, user);
-    refreshRoomText(msg, room);
+
+    if (msg.emoji.name === acceptEmoji) {
+        addUser(room, user);
+        refreshRoomText(msg, room);
+        if (room.users.length > 2) {
+            const general = await client.channels.fetch("389151772498984969");
+            if (room["warn"]) {
+                const oldWarn = await general.messages.fetch(room["warn"])
+                await oldWarn.delete();
+            }
+            const warn = await general.send([
+                "\`A sala está pronta\`",
+                room.users.map(user => `<@${user.id}>`)
+            ]);
+            room["warn"] = warn.id;
+        }
+    }
+
+    if (msg.emoji.name === cancelEmoji) {
+        console.log(user.id);
+        console.log(room.owner);
+        if (user.id === room.owner) {
+            const roomMessage = await msg.message.channel.messages.fetch(room.id);
+            deleteRoom(roomMessage);
+            if (room["warn"]) {
+                const general = await client.channels.fetch("389151772498984969");
+                const oldWarn = await general.messages.fetch(room["warn"])
+                await oldWarn.delete();
+            }
+        }
+    }
+
 
 });
+
+async function deleteRoom(msg) {
+    await msg.delete();
+    delete ROOMS[msg.id];
+    console.log(ROOMS);
+}
 
 client.on('messageReactionRemove', async (msg, user) => {
     if (!user) return;
