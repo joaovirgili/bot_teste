@@ -4,10 +4,16 @@ const { buildRoomText } = require('../../shared/functions/rooms/build_room_messa
 
 module.exports.openRoom = async (msg) => {
     const creator = msg.author;
-    const room = [creator];
-    const texto = buildRoomText(msg.channel.name, room);
+    const room = {
+        users: [creator],
+        game: msg.channel.name,
+    };
+    const texto = buildRoomText(room);
     const roomMessage = await msg.channel.send(texto);
 
     roomMessage.react(acceptEmoji);
-    ROOMS[roomMessage.id] = room;
+
+    room.id = roomMessage.id;
+    ROOMS[room.id] = room;
+    console.log(ROOMS);
 }

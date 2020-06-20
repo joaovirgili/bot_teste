@@ -6,12 +6,27 @@ const { ROOMS } = require('./shared/variables/room')
 const { acceptEmoji } = require('./shared/variables/accept_emoji');
 const { buildRoomText } = require("./shared/functions/rooms/build_room_message")
 
-client.on('ready', () => {
+client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
+    // // Criar a mensagem
+    // const valorantChannel = await client.channels.fetch("723793249269186580");
+    // // console.log()
+    // await client.channels.cache.get("723793249269186580").messages.channel.bulkDelete(10)
+    // valorantChannel.send("text 5");
 });
 
 client.on('message', async msg => {
     const action = COMMANDS[msg.content];
+
+    // if (msg.content === `!delete` && msg.channel.name === "valorant") {
+    //     try {
+    //         msg.channel.bulkDelete(20);
+    //         console.log("funcionou");
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     if (action) {
         action(msg);
@@ -28,14 +43,12 @@ client.on('messageReactionAdd', async (msg, user) => {
     if (msg.emoji.name !== acceptEmoji) return;
 
     const roomId = msg.message.id;
+    if (!hasRoom(ROOMS, roomId)) return;
 
     const room = ROOMS[roomId];
-    if (room) {
-        room.push(user);
-        const roomMessage = await msg.message.channel.messages.fetch(roomId);
-        const texto = buildRoomText(roomMessage.channel.name, room);
-        roomMessage.edit(texto);
-    }
+    addUser(room, user);
+    refreshRoomText(msg, room);
+    console.log(ROOMS);
 
 });
 
@@ -45,16 +58,36 @@ client.on('messageReactionRemove', async (msg, user) => {
     if (msg.emoji.name !== acceptEmoji) return;
 
     const roomId = msg.message.id;
+    if (!hasRoom(ROOMS, roomId)) return;
 
     const room = ROOMS[roomId];
-    if (room) {
-        const index = room.indexOf(user);
-        room.splice(index, 1);
-        const roomMessage = await msg.message.channel.messages.fetch(roomId);
-        const texto = buildRoomText(roomMessage.channel.name, room);
-        roomMessage.edit(texto);
-    }
+    removeUser(room, user);
+    refreshRoomText(msg, room);
+    console.log(ROOMS);
 
 });
+
+// Return if room exists
+function hasRoom(ROOMS, roomId) {
+    return ROOMS.hasOwnProperty(roomId);
+}
+
+// Add a new user to specific room
+function addUser(room, user) {
+    room.users.push(user);
+}
+
+// Removes a user from an specific room
+function removeUser(room, user) {
+    const index = room.users.indexOf(user);
+    room.users.splice(index, 1);
+}
+
+// Refresh de text message of a room
+async function refreshRoomText(msg, room) {
+    const roomMessage = await msg.message.channel.messages.fetch(room.id);
+    const texto = buildRoomText(room);
+    roomMessage.edit(texto);
+}
 
 client.login(DISCORD_KEY); 
