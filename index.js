@@ -49,10 +49,8 @@ client.on('messageReactionAdd', async (msg, user) => {
     if (msg.emoji.name === acceptEmoji) {
         if (room.owner === user.id) {
             await msg.users.remove(user);
-            console.log("Removido");
             return;
         }
-        console.log("teste");
         addUser(room, user);
         refreshRoomText(msg, room);
         if (room.users.length > 2) {
@@ -70,8 +68,6 @@ client.on('messageReactionAdd', async (msg, user) => {
     }
 
     if (msg.emoji.name === cancelEmoji) {
-        console.log(user.id);
-        console.log(room.owner);
         if (user.id === room.owner) {
             const roomMessage = await msg.message.channel.messages.fetch(room.id);
             deleteRoom(roomMessage);
@@ -89,7 +85,6 @@ client.on('messageReactionAdd', async (msg, user) => {
 async function deleteRoom(msg) {
     await msg.delete();
     delete ROOMS[msg.id];
-    console.log(ROOMS);
 }
 
 client.on('messageReactionRemove', async (msg, user) => {
@@ -104,7 +99,6 @@ client.on('messageReactionRemove', async (msg, user) => {
     if (room.owner === user.id) return;
     removeUser(room, user);
     refreshRoomText(msg, room);
-    console.log(ROOMS);
 
 });
 
