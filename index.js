@@ -47,6 +47,12 @@ client.on('messageReactionAdd', async (msg, user) => {
     const room = ROOMS[roomId];
 
     if (msg.emoji.name === acceptEmoji) {
+        if (room.owner === user.id) {
+            await msg.users.remove(user);
+            console.log("Removido");
+            return;
+        }
+        console.log("teste");
         addUser(room, user);
         refreshRoomText(msg, room);
         if (room.users.length > 2) {
@@ -95,6 +101,7 @@ client.on('messageReactionRemove', async (msg, user) => {
     if (!hasRoom(ROOMS, roomId)) return;
 
     const room = ROOMS[roomId];
+    if (room.owner === user.id) return;
     removeUser(room, user);
     refreshRoomText(msg, room);
     console.log(ROOMS);
