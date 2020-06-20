@@ -33,7 +33,13 @@ module.exports.COMMANDS = {
 	'!ranking cs': hltv.ranking,
 	'!lucca': brother.lucca,
 	'!tabela cblol': standings.cblol,
+	'!tabela lcs': standings.lcs,
+	'!tabela lec': standings.lec,
+	'!tabela lck': standings.lck,
+	'!tabela lpl': standings.lpl,
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
 	'!vava': valorant.startQueue,
+	'!tito': brother.tito,
+	'!haas': brother.haas
 };

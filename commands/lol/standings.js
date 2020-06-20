@@ -1,26 +1,19 @@
 const { PANDA_KEY } = require('../../.config');
 const axios = require('axios');
 
-module.exports.cblol = async (msg, id = 4152) => {
-	var url = `https://api.pandascore.co/tournaments/${id}/standings?token=${PANDA_KEY}`;
-
-	try {
-		const res = await axios.get(url);
-		if (res.status === 200) {
-			msg.channel.send(
-				res.data.map((team) => {
-					if (team.team.acronym.length === 2) {
-						team.team.acronym += ' ';
-					}
-					return `\`${team.rank}. ${team.team.acronym}  ${team.wins}-${team.losses}\``;
-				})
-			);
-		} else {
-			console.log(res);
-			msg.channel.send('Deu merda');
-		}
-	} catch (error) {
-		console.error(error);
-		msg.channel.send('Deu merda');
-	}
+const { getTournamentStandings } = require('../../shared/functions/lol/league/getTournamentStandings')
+module.exports.cblol = async (msg) => {
+	getTournamentStandings(msg, 4152, "`CBLOL`")
+};
+module.exports.lcs = async (msg) => {
+	getTournamentStandings(msg, 3526, "`LCS`")
+};
+module.exports.lck = async (msg) => {
+	getTournamentStandings(msg, 4150, "`LCK`")
+};
+module.exports.lpl = async (msg) => {
+	getTournamentStandings(msg, 4240, "`LPL`")
+};
+module.exports.lec = async (msg) => {
+	getTournamentStandings(msg, 4151, "`LEC`")
 };

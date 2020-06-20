@@ -1,4 +1,5 @@
 const { getUser } = require('../../shared/functions/discord/get_user');
+const { sleep } = require('../../shared/functions/utils/sleep')
 
 module.exports.jay = (msg) => {
     const user1 = getUser(msg, 'Jay.');
@@ -50,4 +51,26 @@ module.exports.lucca = (msg) => {
 module.exports.pepo = (msg) => {
     const user = getUser(msg, 'tito');
     msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
+}
+
+module.exports.tito = (msg) => {
+    const user = getUser(msg, 'Pepo');
+    msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
+}
+module.exports.haas = async (msg) => {
+    const user = getUser(msg, 'Haaaas');
+    msg.channel.send(`calma que o rei do cluch tá chegando`)
+    await sleep(1000)
+    msg.channel.send(`.`)
+    await sleep(1000)
+    msg.channel.send(`.`)
+    await sleep(1000)
+    msg.channel.send(`.`)
+    await sleep(1000)
+    msg.channel.send(`.`)
+    await sleep(1000)
+    msg.channel.send(`.`)
+    msg.channel.send(`CHEGUEI GALERAAAAA!`)
+    await sleep(1500)
+    msg.channel.send(`desculpa lud, vou falar baixinho`)
 }
