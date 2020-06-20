@@ -2,12 +2,14 @@ const { ROOMS } = require('../../shared/variables/room')
 const { acceptEmoji } = require('../../shared/variables/accept_emoji')
 const { buildRoomText } = require('../../shared/functions/rooms/build_room_message')
 
-module.exports.openRoom = async (msg) => {
+module.exports.openRoom = async (msg, horario) => {
+
     const author = msg.author;
     const room = {
         users: [author],
         game: msg.channel.name,
         owner: author.id,
+        time: horario
     };
     const texto = buildRoomText(room);
     const roomMessage = await msg.channel.send(texto);

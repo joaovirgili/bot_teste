@@ -3,7 +3,10 @@ module.exports.buildRoomText = (room) => {
     function formatText(msg) {
         return `\`${msg}\``;
     }
-    const title = `SALA DO ${room.game.toUpperCase()}`;
+    let title = `SALA DO ${room.game.toUpperCase()}`;
+    if (room.time) {
+        title += ` - ${room.time}`
+    }
     const usersList = room.users.map((user, index) => `${index + 1}. ${user.username}`);
     const texto = [title, ...usersList].map(formatText);
 

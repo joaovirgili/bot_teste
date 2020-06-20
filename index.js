@@ -17,7 +17,15 @@ client.on('ready', async () => {
 });
 
 client.on('message', async msg => {
-    const action = COMMANDS[msg.content];
+
+    // Commands with optional parameters
+    if (msg.content.includes("!vava")) {
+        entrada = msg.content.split(" ");
+        if (entrada.length == 2) {
+            const action = COMMANDS["!vava horario"];
+            action(msg, entrada[1]);
+        }
+    }
 
     // if (msg.content === `!delete` && msg.channel.name === "valorant") {
     //     try {
@@ -26,6 +34,8 @@ client.on('message', async msg => {
     //         // console.log(error);
     //     }
     // }
+
+    const action = COMMANDS[msg.content];
 
     if (action) {
         action(msg);

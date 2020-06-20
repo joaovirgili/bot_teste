@@ -40,6 +40,7 @@ module.exports.COMMANDS = {
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
 	'!vava': valorant.openRoom,
+	'!vava horario': valorant.openRoom,
 	'!tito': brother.tito,
 	'!caio': brother.caio,
 	'!haas': brother.haas,
