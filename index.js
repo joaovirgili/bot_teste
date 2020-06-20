@@ -53,7 +53,7 @@ client.on('messageReactionAdd', async (msg, user) => {
         }
         addUser(room, user);
         refreshRoomText(msg, room);
-        if (room.users.length > 2) {
+        if (room.users.length > 4) {
             const general = await client.channels.fetch("389151772498984969");
             if (room["warn"]) {
                 const oldWarn = await general.messages.fetch(room["warn"])
