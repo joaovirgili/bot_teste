@@ -20,7 +20,7 @@ module.exports.gustavo = (msg) => {
 }
 module.exports.rocha = (msg) => {
     const user = getUser(msg, 'peu');
-    msg.channel.send(`<@${user.id}> é doente`);
+    msg.channel.send(`<@${user.id}> ta na cozinha`);
 }
 module.exports.alfredo = (msg) => {
     const user = getUser(msg, 'xburguer');
@@ -53,6 +53,14 @@ module.exports.pepo = (msg) => {
     msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
 }
 
+module.exports.tito = (msg) => {
+    const user = getUser(msg, 'Pepo');
+    msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)
+}
+module.exports.caio = (msg) => {
+    const user = getUser(msg, 'Cvs1');
+    msg.channel.send(`<@${user.id}> ta cagando`)
+}
 module.exports.tito = (msg) => {
     const user = getUser(msg, 'Pepo');
     msg.channel.send(`irmão do lindo e maravilhoso <@${user.id}>`)

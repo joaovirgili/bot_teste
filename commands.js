@@ -6,7 +6,7 @@ const other = require('./commands/fun/other');
 const joke = require('./commands/fun/jokes');
 const commands = require('./commands/config');
 const standings = require('./commands/lol/standings');
-const valorant = require('./commands/valorant/queue');
+const valorant = require('./commands/valorant/room');
 
 module.exports.COMMANDS = {
 	'!c': commands.commands,
@@ -39,7 +39,10 @@ module.exports.COMMANDS = {
 	'!tabela lpl': standings.lpl,
 	'!loritta': other.loritta,
 	'!pepo': brother.pepo,
-	'!vava': valorant.startQueue,
+	'!sala': valorant.openRoom,
+	'!sala horario': valorant.openRoom,
 	'!tito': brother.tito,
-	'!haas': brother.haas
+	'!caio': brother.caio,
+	'!haas': brother.haas,
+	'!cancel': valorant.cancel,
 };
