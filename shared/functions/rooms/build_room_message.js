@@ -11,6 +11,5 @@ module.exports.buildRoomText = (room) => {
     const texto = [title, ...usersList.map(formatText)];
     texto.push("\`--------------------\`");
 
-
     return texto;
 }
