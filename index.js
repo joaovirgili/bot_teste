@@ -12,7 +12,6 @@ client.on('ready', () => {
 });
 
 client.on('message', async msg => {
-
     // Commands with optional parameters
     if (msg.content.includes("!sala")) {
         entrada = msg.content.split(" ");

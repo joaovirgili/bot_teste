@@ -46,5 +46,5 @@ module.exports.COMMANDS = {
 	'!caio': brother.caio,
 	'!haas': brother.haas,
 	'!cancel': valorant.cancel,
-	'!pontos': twitch.getPointsJP,
+	'!pontos': twitch.getPoints,
 };
