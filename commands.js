@@ -7,6 +7,7 @@ const joke = require('./commands/fun/jokes');
 const commands = require('./commands/config');
 const standings = require('./commands/lol/standings');
 const valorant = require('./commands/valorant/room');
+const twitch = require('./commands/twitch/points');
 
 module.exports.COMMANDS = {
 	'!c': commands.commands,
@@ -45,4 +46,5 @@ module.exports.COMMANDS = {
 	'!caio': brother.caio,
 	'!haas': brother.haas,
 	'!cancel': valorant.cancel,
+	'!pontos': twitch.getPointsJP,
 };
