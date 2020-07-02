@@ -9,6 +9,7 @@ channels = {
 
 accounts = {
     "JoaoVirgili#1630": "joaovirgili",
+    "joaovirgili#5527": "joaovirgili",
     "Gustavo#6440": "sko2",
 }
 
